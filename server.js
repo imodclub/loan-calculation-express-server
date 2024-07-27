@@ -8,9 +8,6 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
@@ -19,7 +16,7 @@ app.listen(PORT, () => {
 // server.js
 // ... previous code ...
 
-/* app.post('/calculate', (req, res) => {
+ app.post('/calculate', (req, res) => {
   const { principal, annualInterestRate, years, monthlyPayment } = req.body;
 
   const monthlyInterestRate = annualInterestRate / 12 / 100;
@@ -47,4 +44,4 @@ app.listen(PORT, () => {
         totalInterest: totalInterest.toFixed(2),
         payments: payments,
     });
-}); */
+}); 
