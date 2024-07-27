@@ -11,7 +11,11 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'https://visitors-it.com/test-form', // Replace with your frontend origin
+  })
+);
 
 
 // server.js
