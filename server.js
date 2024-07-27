@@ -9,10 +9,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
-
 // server.js
 // ... previous code ...
 
@@ -45,3 +41,7 @@ app.listen(PORT, () => {
         payments: payments,
     });
 }); 
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
