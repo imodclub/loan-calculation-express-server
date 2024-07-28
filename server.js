@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   cors({
-    origin: 'https://visitors-it.com/test-form', // Replace with your frontend origin
+    origin: 'https://visitors-it.com/', // Replace with your frontend origin
   })
 );
 
