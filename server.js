@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   cors({
-    origin: 'https://www.visitors-it.com/2024/07/test-form/', // Replace with your frontend origin
+    origin: '*', // Replace with your frontend origin
   })
 );
 
@@ -23,7 +23,7 @@ app.use(
 // server.js
 // ... previous code ...
 
- app.post('/', (req, res) => {
+ app.post('/calculate', (req, res) => {
   const { principal, annualInterestRate, years, monthlyPayment } = req.body;
 
   const monthlyInterestRate = annualInterestRate / 12 / 100;
