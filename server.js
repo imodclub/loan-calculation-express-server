@@ -23,7 +23,7 @@ app.use(
 // server.js
 // ... previous code ...
 
- app.post('/calculate', (req, res) => {
+ app.post('/', (req, res) => {
   const { principal, annualInterestRate, years, monthlyPayment } = req.body;
 
   const monthlyInterestRate = annualInterestRate / 12 / 100;
