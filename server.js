@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   cors({
-    origin: 'https://visitors-it.com/', // Replace with your frontend origin
+    origin: 'https://www.visitors-it.com/2024/07/test-form/', // Replace with your frontend origin
   })
 );
 
