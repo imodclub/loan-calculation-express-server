@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator</title>
+</head>
+
+<body>
+    <form id="loanForm">
+        <label for="principal">ยอดเงินกู้ทั้งหมด Principal Amount:</label>
+        <input type="number" id="principal" name="principal" required>
+        <br>
+        <label for="annualInterestRate">อัตราดอกเบี้ยต่อปี Annual Interest Rate (%):</label>
+        <input type="number" id="annualInterestRate" name="annualInterestRate" step="0.01" required>
+        <br>
+        <label for="years">จำนวนปีที่ชำระ Loan Term (years):</label>
+        <input type="number" id="years" name="years" required>
+        <br>
+        <label for="monthlyPayment">ยอดชำระต่อเดือน Monthly Payment:</label>
+        <input type="number" id="monthlyPayment" name="monthlyPayment" required>
+        <br>
+        <button type="submit">Calculate</button>
+    </form>
+
+    <table id="resultTable">
+        <thead>
+            <tr>
+                <th>Month เดือนที่</th>
+                <th>Interest อัตราดอกเบี้ย</th>
+                <th>Principal Payment จำนวนเงินต้น</th>
+                <th>Balance ยอดเงินคงเหลือ</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        document.getElementById('loanForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const principal = document.getElementById('principal').value;
+            const annualInterestRate = document.getElementById('annualInterestRate').value;
+            const years = document.getElementById('years').value;
+            const monthlyPayment = document.getElementById('monthlyPayment').value;
+
+            fetch('https://loan-calculation-express-server.onrender.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST',
+                    'Access-Control-Allow-Headers': 'Content-Type',
+                },
+                body: JSON.stringify({
+                    principal: parseFloat(principal),
+                    annualInterestRate: parseFloat(annualInterestRate),
+                    years: parseInt(years),
+                    monthlyPayment: parseFloat(monthlyPayment)
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.querySelector('#resultTable tbody');
+                    tbody.innerHTML = '';
+
+                    data.payments.forEach(payment => {
+                        const row = document.createElement('tr');
+
+                        const monthCell = document.createElement('td');
+                        monthCell.textContent = payment.month;
+                        row.appendChild(monthCell);
+
+                        const interestCell = document.createElement('td');
+                        interestCell.textContent = payment.interest;
+                        row.appendChild(interestCell);
+
+                        const principalCell = document.createElement('td');
+                        principalCell.textContent = payment.principalPayment;
+                        row.appendChild(principalCell);
+
+                        const balanceCell = document.createElement('td');
+                        balanceCell.textContent = payment.balance;
+                        row.appendChild(balanceCell);
+
+                        tbody.appendChild(row);
+                    });
+                });
+        });
+    </script>
+</body>
+
+</html>
